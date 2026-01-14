@@ -11,13 +11,12 @@
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
-    "better-auth": "^1.4.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "generic-pool": "^3.9.0",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
-    "pg": "^8.16.3",
+    "next-auth": "^5.0.0-beta.30",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.0"

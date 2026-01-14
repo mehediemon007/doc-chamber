@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react'; // For a better loading state
+import { signIn } from 'next-auth/react';
 
 export default function SetupPage() {
     // Senior tip: Use a single object for form state to reduce re-renders
@@ -34,21 +34,30 @@ export default function SetupPage() {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/setup-chamber`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...formData, role: "admin" }),
+            body: JSON.stringify({ ...formData, phone: formData.phone.startsWith('+') ? formData.phone : `+88${formData.phone}`, role: "admin" }),
         });
 
         if (response.ok) {
-            // 2. If NestJS succeeds, log the user in via Better-Auth
-            await authClient.signIn.email({
-                email: formData.phone, // Or however you mapped the ID
+
+            const result = await signIn("login", {
+                identifier: formData.phone.startsWith('+') ? formData.phone : `+88${formData.phone}`,
                 password: formData.password,
-            }, {
-                onSuccess: () => {
-                    window.location.href = "/dashboard";
-                }
+                redirect: false,
+                callbackUrl: "/",
             });
+
+            if(result?.error) {
+                alert("Login after signup failed: " + result.error);
+                setLoading(false);
+                return;
+            } else {
+                router.push("/");
+            }
+
+
         } else {
             alert("Signup failed. Check your token or credentials.");
+            setLoading(false);
         }
     };
 
