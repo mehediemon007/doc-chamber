@@ -10,6 +10,7 @@ export interface AccessTokenPayload {
   phone: string;
   fullName: string;
   role: string;
+  chamberId: string;
   exp: number;
 }
 
@@ -33,4 +34,5 @@ export interface AuthUser {
   phone: string;
   fullName: string;
   role: string;
+  chamberId: string;
 }

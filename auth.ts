@@ -47,6 +47,7 @@ const getUserFromAccessToken = (accessToken: AccessTokenPayload): AuthUser => {
         phone: accessToken.phone,
         fullName: accessToken.fullName,
         role: accessToken.role,
+        chamberId: accessToken.chamberId,
     };
 };
 
@@ -75,20 +76,19 @@ export const nextOptions = {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        phone: credentials.identifier,
+                        identifier: credentials.identifier,
                         password: credentials.password,
                     }),
                     }
                 );
 
                 if (!apiResponse.ok) {
-                    // ADD THIS: See what the backend is actually complaining about
                     const errorText = await apiResponse.text();
                     console.error("Backend Login Failed Status:", apiResponse.status);
                     console.error("Backend Login Error Body:", errorText);
                     return null;
                 }
-
+                
                 const tokens: Tokens = await apiResponse.json();
 
                 const access = jwtDecode<AccessTokenPayload>(tokens.accessToken);
