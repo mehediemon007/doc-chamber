@@ -11,7 +11,7 @@ import type {
 
 const refreshAccessToken = async (refreshToken: string) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CHAMBER_AUTH_BASE_URL}/refresh-token`,
+        const response = await fetch(`${process.env.CHAMBER_AUTH_BASE_URL}/refresh-token`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -74,10 +74,10 @@ export const nextOptions = {
                     throw new Error("Missing credentials");
                 }
 
-                identifier = identifier.includes('@') ? identifier : process.env.NEXT_PUBLIC_DEFAULT_COUNTRY_CODE + identifier;
+                identifier = identifier.includes('@') ? identifier : process.env.DEFAULT_COUNTRY_CODE + identifier;
 
                 const apiResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_CHAMBER_AUTH_BASE_URL}/login`,
+                    `${process.env.CHAMBER_AUTH_BASE_URL}/login`,
                     {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

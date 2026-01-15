@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react'; // For a better loading state
-import { signIn } from 'next-auth/react';
+import { toast } from 'sonner';
+import { setupChamber } from '@/app/actions/setup';
+import { signIn } from "next-auth/react";
 
 export default function SetupPage() {
-    // Senior tip: Use a single object for form state to reduce re-renders
+
     const [formData, setFormData] = useState({
         phone: '',
         password: '',
@@ -31,33 +33,39 @@ export default function SetupPage() {
         e.preventDefault();
         setLoading(true);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CHAMBER_AUTH_BASE_URL}/setup-chamber`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...formData, phone: process.env.NEXT_PUBLIC_DEFAULT_COUNTRY_CODE + formData.phone }),
-        });
+        try {
+            
+            const result = await setupChamber(formData);
 
-        if (response.ok) {
+            if(result.error){
+                const { message: errorMessage } = result.error;
+                toast.error(errorMessage);
+                return
+            }
 
-            const result = await signIn("login", {
+            toast.success(`Chamber ${formData.chamberName} setup successful!!!`);
+
+            const loginResult  = await signIn("login", {
                 identifier: formData.phone,
                 password: formData.password,
                 redirect: false,
                 callbackUrl: "/",
             });
-
-            if(result?.error) {
-                alert("Login after signup failed: " + result.error);
-                setLoading(false);
-                return;
-            } else {
-                router.push("/");
+        
+            if(loginResult?.error) {
+                toast.error("Login after signup failed: " + loginResult.error)
             }
 
+            router.push('/');
 
-        } else {
-            alert("Signup failed. Check your token or credentials.");
-            setLoading(false);
+
+        } catch (error: unknown){
+            if( error instanceof Error) console.error(error.message);
+            
+            console.error(error)
+
+        } finally {
+            setLoading(false)
         }
     };
 
