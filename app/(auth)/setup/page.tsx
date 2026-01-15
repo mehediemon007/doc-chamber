@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react'; // For a better loading state
 import { toast } from 'sonner';
-import { setupChamber } from '@/app/actions/setup';
+import { generateSubsToken, setupChamber } from '@/app/actions/setup';
 import { signIn } from "next-auth/react";
 
 export default function SetupPage() {
@@ -24,6 +24,19 @@ export default function SetupPage() {
 
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    const subsToken = async () => {
+
+        const result = await generateSubsToken();
+        
+        if(!result.success){
+            const errorMessage = result.error;
+            toast.error(errorMessage);
+            return
+        }
+
+        setFormData(prev => ({...prev, subscriptionToken: result.token}))
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
@@ -68,6 +81,10 @@ export default function SetupPage() {
             setLoading(false)
         }
     };
+
+    useEffect(()=>{
+        subsToken();
+    },[])
 
     return (
         <div className="max-w-md mx-auto py-10">

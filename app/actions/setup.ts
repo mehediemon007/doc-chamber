@@ -1,5 +1,10 @@
 'use server'
 
+type GenerateSubsTokenResult =
+  | { success: true; token: string }
+  | { success: false; error: string };
+
+
 export type SetupFormData = {
   phone: string;
   password: string;
@@ -9,6 +14,43 @@ export type SetupFormData = {
   licenseNumber: string;
   subscriptionToken?: string;
 };
+
+export async function generateSubsToken(): Promise<GenerateSubsTokenResult>{
+    
+    try {
+
+        const response = await fetch(`${process.env.CHAMBER_AUTH_BASE_URL}/generate-subscription-token`, {
+            method: 'GET',
+            headers: {
+                "Content-Type" : "application/json",
+                "x-admin-secret": process.env.CHAMBER_ADMIN_SECRET as string
+            }
+        })
+
+        if(!response.ok){
+
+            const errorData = await response.json();
+
+            return {
+                success: false,
+                error : errorData?.message || "Token Geneartion Failed"
+            }
+        }
+
+        return {
+            success: true,
+            token: await response.text()
+        }
+
+    } catch (error: unknown) {
+
+        if( error instanceof Error){
+            throw new Error(error.message);
+        }
+
+        throw new Error(error as string);
+    }
+}
 
 export async function setupChamber(formData: SetupFormData){
 
