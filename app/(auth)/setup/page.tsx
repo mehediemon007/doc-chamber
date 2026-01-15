@@ -31,16 +31,16 @@ export default function SetupPage() {
         e.preventDefault();
         setLoading(true);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/setup-chamber`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_CHAMBER_AUTH_BASE_URL}/setup-chamber`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...formData, phone: formData.phone.startsWith('+') ? formData.phone : `+88${formData.phone}`, role: "admin" }),
+            body: JSON.stringify({ ...formData, phone: process.env.NEXT_PUBLIC_DEFAULT_COUNTRY_CODE + formData.phone }),
         });
 
         if (response.ok) {
 
             const result = await signIn("login", {
-                identifier: formData.phone.startsWith('+') ? formData.phone : `+88${formData.phone}`,
+                identifier: formData.phone,
                 password: formData.password,
                 redirect: false,
                 callbackUrl: "/",
