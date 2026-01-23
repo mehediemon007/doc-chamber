@@ -107,3 +107,18 @@
   }
   
 }
+
+@layer utilities {
+  .container {
+    margin-inline: auto;
+    padding-inline: .5rem;
+
+    @variant sm {
+      padding-inline: 1rem;
+    }
+
+    @variant 2xl {
+      padding-inline: 2rem;
+    }
+  }
+}

@@ -9,7 +9,7 @@ const Hero = ({ className} : HeroProps) => {
     return (
         <section className={cn('', className)}>
             <div className="relative h-dvh bg-[url('/hero-banner.webp')] bg-center bg-no-repeat bg-cover">
-                <div className="@container">
+                <div className="container">
                     <div>
                         <h1>Where Ambition Meets Real Results</h1>
                     </div>
