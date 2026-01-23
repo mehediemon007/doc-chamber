@@ -1,5 +1,7 @@
+import Hero from "./_components/Hero";
+
 export default function Home() {
     return (
-        <h1>Welcome to DocChamber</h1>
+        <Hero/>
     );
 }
