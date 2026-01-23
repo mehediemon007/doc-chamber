@@ -105,9 +105,7 @@ export default function SetupPage() {
                     <Label htmlFor="password">Password</Label>
                     <Input id="password" type="password" required value={formData.password} onChange={handleChange} />
                 </div>
-
-                <hr className="my-4" />
-
+                
                 <div className="space-y-2">
                     <Label htmlFor="chamberName">Chamber Name</Label>
                     <Input id="chamberName" required value={formData.chamberName} onChange={handleChange} />
