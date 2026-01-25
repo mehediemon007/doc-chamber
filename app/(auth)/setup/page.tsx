@@ -11,7 +11,7 @@ import { Loader2 } from 'lucide-react';
 
 import { toast } from 'sonner';
 import { generateSubsToken, setupChamber } from '@/app/actions/setup';
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from "next-auth/react";
 
 export default function SetupPage() {
 
@@ -66,12 +66,14 @@ export default function SetupPage() {
                 password: formData.password,
                 redirect: false,
                 callbackUrl: "/dashboard",
-            });
+            }) as SignInResponse;
         
             if(loginResult?.error) {
                 toast.error("Login after signup failed: " + loginResult.error)
             }
-            
+
+            router.push('/dashboard');
+
         } catch (error: unknown){
             if( error instanceof Error) console.error(error.message);
             
