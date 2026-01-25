@@ -23,9 +23,9 @@ export function DatePicker({ className } : {className? : string}) {
                 <Button
                     variant="outline"
                     data-empty={!date}
-                    className={cn("data-[empty=true]:text-muted-foreground w-53 justify-between text-left font-normal", className)}
+                    className={cn("data-[empty=true]:text-muted-foreground w-53 justify-between text-left font-normal focus-visible:outline-1", className)}
                 >
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    {date ? format(date, "dd-MM-yyyy") : <span>Pick a date</span>}
                     <ChevronDownIcon />
                 </Button>
             </PopoverTrigger>

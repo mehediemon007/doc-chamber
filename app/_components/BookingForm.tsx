@@ -17,19 +17,19 @@ function BookingForm() {
             <form>
                 <fieldset className='space-y-2.5'>
                     <div>
-                        <label htmlFor="name">Name</label>
-                        <input id="name" type="text" placeholder='Hasan Masud'/>
+                        <label htmlFor="name" className='required'>Name</label>
+                        <input id="name" type="text" placeholder='Hasan Masud' autoComplete='off'/>
                     </div>
                     <div>
-                        <label htmlFor="phone">Phone</label>
-                        <input id="phone" type="tel" placeholder='01XXX-XXXXXX'/>
+                        <label htmlFor="phone" className='required'>Phone</label>
+                        <input id="phone" type="tel" placeholder='01XXX-XXXXXX' autoComplete='off'/>
                     </div>
                     <div>
-                        <label htmlFor="date">Date</label>
+                        <label htmlFor="date" className='required'>Date</label>
                         <DatePicker className='w-full h-auto bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! hover:bg-[#f6f6f6]'/>
                     </div>
                     <div>
-                        <label htmlFor="time">Time</label>
+                        <label htmlFor="time" className='required'>Time</label>
                         <Select
                             // defaultValue={time!}
                             // onValueChange={(e) => {
@@ -43,7 +43,7 @@ function BookingForm() {
                             //     }
                             // }}
                         >
-                            <SelectTrigger className="w-full h-auto! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0">
+                            <SelectTrigger className="w-full h-auto! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! focus:ring-0 focus:ring-offset-0 focus-visible:outline-1 focus-visible:outline-primary">
                                 <SelectValue placeholder="Select time"/>
                             </SelectTrigger>
                             <SelectContent>

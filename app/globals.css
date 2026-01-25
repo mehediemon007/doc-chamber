@@ -41,6 +41,12 @@
   --radius: 0.75rem; /* Modern, slightly rounded corners */
 }
 
+.dark {
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
+  /* ... add dark mode equivalents here */
+}
+
 @theme inline {
   --font-heading: var(--font-pops);
   --font-body: var(--font-rubik);
@@ -96,10 +102,17 @@
   }
 }
 
-.dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  /* ... add dark mode equivalents here */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 0.5rem;
+
+  @variant sm {
+    padding-inline: 1rem;
+  }
+
+  @variant 2xl {
+    padding-inline: 2rem;
+  }
 }
 
 @layer base {
@@ -129,8 +142,12 @@
     @apply block text-sm/[1rem] font-semibold text-gray-500 mb-1.5
   }
 
+  label.required {
+    @apply relative w-max before:content-['*'] before:absolute before:top-0 before:-right-2 before:text-red-500 
+  }
+
   input {
-    @apply w-full text-sm bg-[#f6f6f6] border border-[#EEEEEE] rounded-[50px] py-2.5 px-4 placeholder:text-sm
+    @apply w-full text-sm bg-[#f6f6f6] border border-[#EEEEEE] rounded-[50px] py-2.5 px-4 focus-visible:outline-1 focus-visible:outline-primary placeholder:text-sm
   }
   
 }
@@ -140,19 +157,5 @@
   .btn-default {
     @apply text-base font-semibold font-heading text-white bg-primary rounded-[50px] py-3.5 px-5.5
   }
-}
 
-@layer utilities {
-  .container {
-    margin-inline: auto;
-    padding-inline: .5rem;
-
-    @variant sm {
-      padding-inline: 1rem;
-    }
-
-    @variant 2xl {
-      padding-inline: 2rem;
-    }
-  }
 }
