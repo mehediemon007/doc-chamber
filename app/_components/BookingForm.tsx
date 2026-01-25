@@ -43,7 +43,7 @@ function BookingForm() {
                             //     }
                             // }}
                         >
-                            <SelectTrigger className="w-full h-auto! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! focus:ring-0 focus:ring-offset-0 focus-visible:outline-1 focus-visible:outline-primary">
+                            <SelectTrigger className="w-full h-auto! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4!">
                                 <SelectValue placeholder="Select time"/>
                             </SelectTrigger>
                             <SelectContent>
