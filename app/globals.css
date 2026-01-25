@@ -15,7 +15,7 @@
   --popover-foreground: hsl(222.2 84% 4.9%);
 
   /* Primary: "Medical Blue" - Trust & Authority */
-  --primary: hsl(221.2 83.2% 53.3%);
+  --primary: hsl(184 100% 29%);
   --primary-foreground: hsl(210 40% 98%);
 
   /* Secondary: Light Slate - Softness */
@@ -71,7 +71,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary-color: var(--primary);
+  --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -83,6 +83,17 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --animate-typing: typing 5s ease-in-out infinite;
+
+  @keyframes typing {
+    0% { width: 0%; }
+    45%, 50% { width: 100%; }
+    90%, 100% { width: 0%; }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
 }
 
 .dark {
@@ -105,7 +116,19 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  h1 {
+    @apply text-[3.125rem]/[1.1em] font-semibold font-heading text-white text-shadow-[0_0_1px_#000000]
+  }
   
+}
+
+@layer components {
+
+  .btn-default {
+    @apply text-base font-semibold font-heading text-white bg-primary rounded-[50px] py-3.5 px-5.5
+  }
+
 }
 
 @layer utilities {
