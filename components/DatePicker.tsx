@@ -23,7 +23,7 @@ export function DatePicker({ className } : {className? : string}) {
                 <Button
                     variant="outline"
                     data-empty={!date}
-                    className={cn("data-[empty=true]:text-muted-foreground w-53 justify-between text-left font-normal focus-visible:outline-1", className)}
+                    className={cn("data-[empty=true]:text-muted-foreground w-53 justify-between text-left font-normal focus-visible:right-0 focus-visible:outline-1 focus-visible:outline-primary", className)}
                 >
                     {date ? format(date, "dd-MM-yyyy") : <span>Pick a date</span>}
                     <ChevronDownIcon />
