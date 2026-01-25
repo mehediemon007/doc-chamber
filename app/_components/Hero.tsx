@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import TypingText from '@/components/TypingText';
+import BookingForm from './BookingForm';
 
 interface HeroProps {
     className?: string
@@ -14,7 +15,7 @@ const Hero = ({ className} : HeroProps) => {
         <section className={cn('', className)}>
             <div className="relative h-dvh bg-[url('/hero-banner.webp')] bg-center bg-no-repeat bg-cover">
                 <div className="container">
-                    <div className='pt-50 pb-12.5'>
+                    <div className='flex justify-between items-center pt-50 pb-12.5'>
                         <div className='w-[34%]'>
                             <TypingText phrases={words}/>
                             <h1>Where Ambition Meets Real Results</h1>
@@ -22,6 +23,9 @@ const Hero = ({ className} : HeroProps) => {
                             <button className='btn-default'>
                                 Get A Quote
                             </button>
+                        </div>
+                        <div className='w-1/4'>
+                            <BookingForm/>
                         </div>
                     </div>
                 </div>
