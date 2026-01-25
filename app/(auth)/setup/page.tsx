@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react'; // For a better loading state
+
+// *** Import Icons
+import { Loader2 } from 'lucide-react';
+
 import { toast } from 'sonner';
 import { generateSubsToken, setupChamber } from '@/app/actions/setup';
 import { signIn } from "next-auth/react";
@@ -62,16 +65,13 @@ export default function SetupPage() {
                 identifier: formData.phone,
                 password: formData.password,
                 redirect: false,
-                callbackUrl: "/",
+                callbackUrl: "/dashboard",
             });
         
             if(loginResult?.error) {
                 toast.error("Login after signup failed: " + loginResult.error)
             }
-
-            router.push('/');
-
-
+            
         } catch (error: unknown){
             if( error instanceof Error) console.error(error.message);
             
