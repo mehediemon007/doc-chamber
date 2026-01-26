@@ -121,12 +121,16 @@
     @apply text-[3.125rem]/[1.1em] font-semibold font-heading text-white text-shadow-[0_0_1px_#000000]
   }
 
+  h2 {
+    @apply text-[40px]/[1.1em] font-semibold font-heading
+  }
+
   h4 {
     @apply text-2xl font-semibold font-heading
   }
 
   label {
-    @apply block text-sm/[1rem] font-semibold text-gray-500 mb-1.5
+    @apply block text-sm/[1rem] font-medium text-gray-800 mb-1.5
   }
 
   label.required {
@@ -134,7 +138,7 @@
   }
 
   input {
-    @apply w-full text-sm bg-[#f6f6f6] border border-[#EEEEEE] rounded-[50px] py-2.5 px-4 focus:outline-1 focus:outline-primary placeholder:text-sm
+    @apply w-full text-sm bg-[#f6f6f6] border border-[#EEEEEE] rounded-[50px] py-2.5 px-4 focus:outline-1 focus:outline-primary placeholder:text-sm placeholder:text-gray-400
   }
   
 }
@@ -155,7 +159,7 @@
     padding-inline: 1rem;
   }
 
-  @variant 2xl {
+  @variant xl {
     padding-inline: 2rem;
   }
 }
