@@ -3,7 +3,7 @@
 import { signupSchema, SignupInput } from "@/schema";
 import { SignupActionState } from "@/types/auth-types";
 
-export async function signUpAction(prevState: SignupActionState | null, formData: SignupInput) : Promise<SignupActionState>{
+export async function signUpAction(prevState: SignupActionState | null, formData: Omit<SignupInput, "confirmPassword">) : Promise<SignupActionState>{
 
     const validatedFields = signupSchema.safeParse(formData);
 

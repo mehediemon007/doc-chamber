@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 
 import { signIn, SignInResponse } from 'next-auth/react';
@@ -83,7 +84,7 @@ export default function Login() {
 
                                 <div className="relative space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="password" className='required'>Password</Label>
-                                    <Input id="password" type="password" placeholder='password1234' autoComplete='off' {...register('password', { required: 'Password is required'})} className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''} onFocus={() => setServerError('')}/>
+                                    <PasswordInput id="password" placeholder='password1234' autoComplete='off' {...register('password', { required: 'Password is required'})} className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''} onFocus={() => setServerError('')}/>
                                     {
                                         errors.password && (
                                             <p className='text-sm text-red-500 flex items-center gap-1'>

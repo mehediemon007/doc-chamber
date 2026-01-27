@@ -7,13 +7,14 @@ import Image from 'next/image';
 
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/PasswordInput';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SignupInput, signupSchema } from '@/schema';
-import { signUpAction } from '@/app/actions/authActions';
+import { signUpAction } from '@/app/actions/signupAction';
 import { signIn, SignInResponse } from 'next-auth/react';
 
 // *** Import Icons
@@ -35,10 +36,12 @@ export default function Signup() {
     });
 
     const onSubmit = async (data: SignupInput) => {
+
+        const { confirmPassword, ...submitData } = data;
         
         startTransition(async () => {
 
-            const state = await signUpAction(null, data);
+            const state = await signUpAction(null, submitData);
 
             if(state.success){
 
@@ -89,20 +92,26 @@ export default function Signup() {
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="fullName" className='required'>Full Name</Label>
-                                    <Input {...register('fullName')} onBlur={(e) => {setValue("fullName", e.target.value.trim())}} placeholder='Hasan Masud' className={errors.fullName ? 'border-red-500 focus-visible:border-red-500' : ''}/>
+                                    <Input id='fullName' {...register('fullName')} onBlur={(e) => {setValue("fullName", e.target.value.trim())}} placeholder='Hasan Masud' className={errors.fullName ? 'border-red-500 focus-visible:border-red-500' : ''}/>
                                     {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
                                 </div>
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="phone" className='required'>Phone Number</Label>
-                                    <Input {...register('phone')} onBlur={(e) => {setValue("phone", e.target.value.trim())}} placeholder='01XXX-XXXXXX' className={errors.phone ? 'border-red-500 focus-visible:border-red-500' : ''}/>
+                                    <Input id='phone' {...register('phone')} onBlur={(e) => {setValue("phone", e.target.value.trim())}} placeholder='01XXX-XXXXXX' className={errors.phone ? 'border-red-500 focus-visible:border-red-500' : ''}/>
                                     {errors.phone && <p className="text-red-500 text-xs">{errors.phone.message}</p>}
                                 </div>
 
                                 <div className="relative space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="password" className='required'>Password</Label>
-                                    <Input {...register('password')} type="password" onBlur={(e) => {setValue("password", e.target.value.trim())}} placeholder='Min. 6 Character' autoComplete='off' className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''}/>
+                                    <PasswordInput id='password' {...register('password')} onBlur={(e) => {setValue("password", e.target.value.trim())}} placeholder='Min. 6 Character' autoComplete='off' className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''}/>
                                     {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
+                                </div>
+
+                                <div className="relative space-y-2 mb-3 sm:mb-4">
+                                    <Label htmlFor="confirmPassword" className='required'>Confirm Password</Label>
+                                    <PasswordInput id='confirmPassword' {...register('confirmPassword')} placeholder='Repeat Password' autoComplete='off' className={errors.confirmPassword ? 'border-red-500 focus-visible:border-red-500' : ''}/>
+                                    {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>}
                                 </div>
 
                                 <Button type="submit" className="w-full mt-1 sm:mt-2" disabled={isPending}>
