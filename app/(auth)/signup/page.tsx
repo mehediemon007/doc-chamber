@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, {useActionState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -8,27 +8,47 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
+import { ActionState, signUpAction } from '@/app/actions/authActions';
+import { signIn } from 'next-auth/react';
+import { toast } from 'sonner';
+
 // *** Import Icons
 import { Loader2 } from 'lucide-react';
 
+
+const initialState: ActionState = {
+    success: false,
+    message: null,
+    error: null
+}
+
 export default function Signup() {
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        phone: '',
-        password: ''
-    });
-    
-    const [loading, setLoading] = useState(false);
+    const [state, formAction, isPending] = useActionState(signUpAction, initialState);
+    const formRef = useRef<HTMLFormElement>(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData((prev) => ({...prev, [e.target.id] : e.target.value}))
-    }
-    
-    const handleSignup = async (e : React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true)
-    }
+    useEffect(()=>{
+
+        if(state.success){
+            toast.success(state.message);
+
+            const formData = new FormData(formRef.current!);
+            const phone = formData.get('phone');
+            const password = formData.get('password') as string;
+
+            signIn("login", {
+                identifier: phone,
+                password: password,
+                redirect: false,
+                callbackUrl: "/",
+            })
+        }
+
+        if (state.error) {
+            toast.error(state.error);
+        }
+
+    },[state])
 
     return (
         <div>
@@ -37,26 +57,29 @@ export default function Signup() {
                     <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full sm:max-w-5xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-xl sm:rounded-2xl">
                         <div className='col-span-1 py-6 px-4 sm:py-8 sm:px-6 md:py-20 md:px-12'>
                             <h2 className='text-xl sm:text-2xl xl:text-4xl text-primary text-center md:text-left mb-4 sm:mb-6'>Open Your Account!</h2>
-                            <form onSubmit={handleSignup}>
+                            <form ref={formRef} action={formAction}>
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="fullName" className='required'>Full Name</Label>
-                                    <Input id="fullName" type="tel" required value={formData.phone} placeholder='Hasan Masud' onChange={handleChange} />
+                                    <Input id="fullName" name='fullName' type="text" placeholder='Hasan Masud' required/>
+                                    {state.fieldErrors?.fullName && <p className="text-red-500 text-sm">{state.fieldErrors?.fullName}</p>}
                                 </div>
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="phone" className='required'>Phone Number</Label>
-                                    <Input id="phone" type="tel" required value={formData.phone} placeholder='01XXX-XXXXXX' onChange={handleChange} />
+                                    <Input id="phone" name='phone' type="tel" placeholder='01XXX-XXXXXX' required/>
+                                    {state.fieldErrors?.phone && <p className="text-red-500 text-sm">{state.fieldErrors?.phone}</p>}
                                 </div>
 
                                 <div className="relative space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="password" className='required'>Password</Label>
-                                    <Input id="password" type="password" required value={formData.password} placeholder='password1234' autoComplete='off' onChange={handleChange} />
+                                    <Input id="password" name='password' type="password" required autoComplete='off'/>
+                                    {state.fieldErrors?.password && <p className="text-red-500 text-sm">{state.fieldErrors?.password}</p>}
                                 </div>
 
-                                <Button type="submit" className="w-full mt-1 sm:mt-2" disabled={loading}>
-                                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {loading ? "Creating Account..." : "Sign-Up"}
+                                <Button type="submit" className="w-full mt-1 sm:mt-2" disabled={isPending}>
+                                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    {isPending ? "Creating Account..." : "Sign-Up"}
                                 </Button>
 
                             </form>
