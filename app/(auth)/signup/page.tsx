@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useActionState, useEffect, useRef } from 'react';
+import React, {useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -25,30 +25,36 @@ const initialState: ActionState = {
 export default function Signup() {
 
     const [state, formAction, isPending] = useActionState(signUpAction, initialState);
-    const formRef = useRef<HTMLFormElement>(null);
+
+    const [formData, setFormData] = useState({
+        fullName: '',
+        phone: '',
+        password: '',
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));
+    }
 
     useEffect(()=>{
 
         if(state.success){
             toast.success(state.message);
 
-            const formData = new FormData(formRef.current!);
-            const phone = formData.get('phone');
-            const password = formData.get('password') as string;
+            console.log(formData)
 
-            signIn("login", {
-                identifier: phone,
-                password: password,
-                redirect: false,
-                callbackUrl: "/",
-            })
+            signIn('login', {
+                identifier: formData.phone,
+                password: formData.password,
+                callbackUrl: '/',
+            });
         }
 
         if (state.error) {
             toast.error(state.error);
         }
 
-    },[state])
+    },[state, formData])
 
     return (
         <div>
@@ -57,23 +63,23 @@ export default function Signup() {
                     <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full sm:max-w-5xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-xl sm:rounded-2xl">
                         <div className='col-span-1 py-6 px-4 sm:py-8 sm:px-6 md:py-20 md:px-12'>
                             <h2 className='text-xl sm:text-2xl xl:text-4xl text-primary text-center md:text-left mb-4 sm:mb-6'>Open Your Account!</h2>
-                            <form ref={formRef} action={formAction}>
+                            <form action={formAction}>
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="fullName" className='required'>Full Name</Label>
-                                    <Input id="fullName" name='fullName' type="text" placeholder='Hasan Masud' required/>
+                                    <Input id="fullName" name='fullName' type="text" placeholder='Hasan Masud' value={formData.fullName} required onChange={handleChange}/>
                                     {state.fieldErrors?.fullName && <p className="text-red-500 text-sm">{state.fieldErrors?.fullName}</p>}
                                 </div>
 
                                 <div className="space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="phone" className='required'>Phone Number</Label>
-                                    <Input id="phone" name='phone' type="tel" placeholder='01XXX-XXXXXX' required/>
+                                    <Input id="phone" name='phone' type="tel" placeholder='01XXX-XXXXXX' value={formData.phone} required onChange={handleChange}/>
                                     {state.fieldErrors?.phone && <p className="text-red-500 text-sm">{state.fieldErrors?.phone}</p>}
                                 </div>
 
                                 <div className="relative space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="password" className='required'>Password</Label>
-                                    <Input id="password" name='password' type="password" required autoComplete='off'/>
+                                    <Input id="password" name='password' type="password" value={formData.password} required  autoComplete='off' onChange={handleChange}/>
                                     {state.fieldErrors?.password && <p className="text-red-500 text-sm">{state.fieldErrors?.password}</p>}
                                 </div>
 

@@ -29,7 +29,7 @@ export async function signUpAction(prevState: ActionState, formData: FormData) :
     try {
 
         const phoneWithCountryCode = process.env.DEFAULT_COUNTRY_CODE + phone;
-
+        
         const response = await fetch(`${process.env.CHAMBER_AUTH_BASE_URL}/signup`,{
             method: 'POST',
             headers: {
