@@ -35,7 +35,7 @@ export default function Login() {
         try {
 
             const result  = await signIn("login", {
-                identifier: data.phone,
+                identifier: data.phone.trim(),
                 password: data.password,
                 redirect: false,
             }) as SignInResponse;

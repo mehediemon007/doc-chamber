@@ -101,7 +101,7 @@ export default function Signup() {
 
                                 <div className="relative space-y-2 mb-3 sm:mb-4">
                                     <Label htmlFor="password" className='required'>Password</Label>
-                                    <Input {...register('password')} type="password" onBlur={(e) => {setValue("password", e.target.value.trim())}} className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''}/>
+                                    <Input {...register('password')} type="password" onBlur={(e) => {setValue("password", e.target.value.trim())}} placeholder='Min. 6 Character' autoComplete='off' className={errors.password ? 'border-red-500 focus-visible:border-red-500' : ''}/>
                                     {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
                                 </div>
 
