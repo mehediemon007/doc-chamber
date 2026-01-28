@@ -78,15 +78,13 @@ export async function setupChamber(prevState: FormActionState | null, formData: 
 
         const result = await response.json();
 
-        console.log(result);
-
         if(!response.ok){
 
             return {
                 success: false,
-                message: null,
+                message: result.message,
                 error: result.error || "Chamber Setup Failed.",
-                fieldErrors: result.errorMessage || null
+                fieldErrors: result?.errorMessage || null
             };
         }
         

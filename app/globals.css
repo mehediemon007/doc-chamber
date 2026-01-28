@@ -134,7 +134,7 @@
   }
 
   label.required {
-    @apply relative w-max before:content-['*'] before:absolute before:top-0 before:-right-2 before:text-red-500 
+    @apply relative w-max! before:content-['*'] before:absolute before:top-0 before:-right-2 before:text-red-500 
   }
 
   input {

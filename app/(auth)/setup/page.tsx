@@ -1,27 +1,31 @@
 'use client';
 
 import React, { useEffect, useCallback, useTransition } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/PasswordInput';
 
-// *** Import Icons
-import { Loader2 } from 'lucide-react';
 
-import { toast } from 'sonner';
-import { generateSubsToken, setupChamber } from '@/app/actions/setup';
-import { signIn, SignInResponse } from "next-auth/react";
-import Image from 'next/image';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { SetupInput, setupSchema } from '@/schemas/setup';
-import { PasswordInput } from '@/components/PasswordInput';
+import { generateSubsToken, setupChamber } from '@/app/actions/setup';
+import { signIn, SignInResponse } from "next-auth/react";
+
+import { toast } from 'sonner';
+
+// *** Import Icons
+import { Loader2, RefreshCw } from 'lucide-react';
 
 export default function SetupPage() {
 
     const router = useRouter();
     
+    const [isTokenPending, startTokenTransition] = useTransition();
     const [isPending, startTransition] = useTransition();
 
     const form = useForm<SetupInput>({
@@ -37,17 +41,29 @@ export default function SetupPage() {
         }
     })
 
-    const subsToken = useCallback(async () => {
+    const subsToken = useCallback(async (force = false) => {
 
-        const result = await generateSubsToken();
+        if(!force && form.getValues('subscriptionToken')) return
+
+        startTokenTransition(async ()=> {
+            const result = await generateSubsToken();
         
-        if(!result.success){
-            const errorMessage = result.error;
-            toast.error(errorMessage);
-            return
-        }
+            if(!result.success){
+                
+                console.error(result.error);
 
-        form.setValue('subscriptionToken', result.token)
+                form.setError('subscriptionToken', {
+                    type: 'Manual',
+                    message: 'Failed to generate token! Refresh.'
+                })
+
+                form.setValue('subscriptionToken', '')
+                return
+            }
+
+            form.clearErrors('subscriptionToken');
+            form.setValue('subscriptionToken', result.token);
+        })
 
     },[form])
 
@@ -89,7 +105,7 @@ export default function SetupPage() {
                 }
             
                 if (state.error) {
-                    toast.error(state.error);
+                    toast.error(state.message);
                 }
             }
         })
@@ -113,7 +129,7 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='fullName'>Full Name</FieldLabel>
+                                            <FieldLabel htmlFor='fullName' className='required'>Full Name</FieldLabel>
                                             <Input
                                                 {...field}
                                                 id='fullName'
@@ -137,7 +153,7 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='phone'>Phone Number</FieldLabel>
+                                            <FieldLabel htmlFor='phone' className='required'>Phone Number</FieldLabel>
                                             <Input
                                                 {...field}
                                                 id='phone'
@@ -161,7 +177,7 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='password'>Password</FieldLabel>
+                                            <FieldLabel htmlFor='password' className='required'>Password</FieldLabel>
                                             <PasswordInput
                                                 {...field}
                                                 id='password'
@@ -186,7 +202,7 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='confirmPassword'>Confirm Password</FieldLabel>
+                                            <FieldLabel htmlFor='confirmPassword' className='required'>Confirm Password</FieldLabel>
                                             <PasswordInput
                                                 {...field}
                                                 id='confirmPassword'
@@ -208,7 +224,7 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='chamberName'>Chamber Name</FieldLabel>
+                                            <FieldLabel htmlFor='chamberName' className='required'>Chamber Name</FieldLabel>
                                             <Input
                                                 {...field}
                                                 id='chamberName'
@@ -256,13 +272,26 @@ export default function SetupPage() {
                                     control={form.control}
                                     render={({ field, fieldState })=>(
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor='subscriptionToken'>Subscription Token</FieldLabel>
-                                            <Input
-                                                {...field}
-                                                id='subscriptionToken'
-                                                aria-invalid={fieldState.invalid}
-                                                placeholder='BETA-F3XXXXX'
-                                            />
+                                            <FieldLabel htmlFor='subscriptionToken' className='required'>Subscription Token</FieldLabel>
+                                            <div className="relative">
+                                                <Input
+                                                    {...field}
+                                                    id='subscriptionToken'
+                                                    aria-invalid={fieldState.invalid}
+                                                    placeholder='BETA-6XZXXXX'
+                                                />
+                                                <div className='absolute right-3 top-1/2 inline-flex items-center -translate-y-1/2'>
+                                                    {
+                                                        isTokenPending ? (
+                                                            <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+                                                        ) : fieldState.invalid ? (
+                                                                <button type='button' aria-label='Generate Token' onClick={()=>subsToken(true)} className='text-gray-400 transition-all duration-75 ease-in-out hover:text-foreground'>
+                                                                    <RefreshCw className="h-4 w-4"/>
+                                                                </button>
+                                                        ) : null
+                                                    }
+                                                </div>
+                                            </div>
                                             {
                                                 fieldState.invalid && (
                                                     <FieldError errors={[fieldState.error]}/>
