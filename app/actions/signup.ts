@@ -1,14 +1,13 @@
 'use server';
 
-import { signupFieldsSchema, SignupInput } from "@/schema";
-import { SignupActionState } from "@/types/auth-types";
+import { signupFieldsSchema, SignupInput } from "@/schemas/signup";
+import { FormActionState } from "@/types/types";
 
-export async function signUpAction(prevState: SignupActionState | null, formData: Omit<SignupInput, "confirmPassword">) : Promise<SignupActionState>{
+export async function signUpAction(prevState: FormActionState | null, formData: Omit<SignupInput, "confirmPassword">) : Promise<FormActionState>{
 
     const validatedFields = signupFieldsSchema.safeParse(formData);
 
     if(!validatedFields.success){
-        console.log(validatedFields.error.flatten().fieldErrors)
         return {
             success: false,
             message: null,

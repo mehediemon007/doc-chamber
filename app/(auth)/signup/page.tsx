@@ -13,8 +13,8 @@ import { toast } from 'sonner';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
-import { SignupInput, signupSchema } from '@/schema';
-import { signUpAction } from '@/app/actions/signupAction';
+import { SignupInput, signupSchema } from '@/schemas/signup';
+import { signUpAction } from '@/app/actions/signup';
 import { signIn, SignInResponse } from 'next-auth/react';
 
 // *** Import Icons
