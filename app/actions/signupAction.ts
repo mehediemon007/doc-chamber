@@ -1,13 +1,14 @@
 'use server';
 
-import { signupSchema, SignupInput } from "@/schema";
+import { signupFieldsSchema, SignupInput } from "@/schema";
 import { SignupActionState } from "@/types/auth-types";
 
 export async function signUpAction(prevState: SignupActionState | null, formData: Omit<SignupInput, "confirmPassword">) : Promise<SignupActionState>{
 
-    const validatedFields = signupSchema.safeParse(formData);
+    const validatedFields = signupFieldsSchema.safeParse(formData);
 
     if(!validatedFields.success){
+        console.log(validatedFields.error.flatten().fieldErrors)
         return {
             success: false,
             message: null,
@@ -15,7 +16,7 @@ export async function signUpAction(prevState: SignupActionState | null, formData
             fieldErrors: validatedFields.error.flatten().fieldErrors,
         }
     }
-    
+
     const { fullName, phone, password } = validatedFields.data;
     const phoneWithCountryCode = process.env.DEFAULT_COUNTRY_CODE + phone;
 
