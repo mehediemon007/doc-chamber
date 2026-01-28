@@ -101,188 +101,190 @@ export default function SetupPage() {
 
     return (
         <div className='container'>
-            <div className="grid grid-cols-2 shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-xl sm:rounded-2xl">
-                <div className="col-span-1 py-6 px-4 sm:py-8 sm:px-6 md:py-20 md:px-12">
-                    <h2 className='text-xl sm:text-2xl xl:text-4xl text-primary text-center md:text-left mb-4 sm:mb-6'>Setup Chamber!</h2>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="flex justify-center items-center min-h-dvh sm:py-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full sm:max-w-5xl sm:shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-xl sm:rounded-2xl">
+                    <div className="col-span-1 order-1 md:order-0 py-4 px-1 sm:p-6 md:py-8">
+                        <h2 className='text-xl sm:text-2xl xl:text-4xl text-primary text-center md:text-left mb-4'>Setup Chamber!</h2>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
 
-                        <FieldGroup>
-                            <Controller
-                                name='fullName'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='fullName'>Full Name</FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id='fullName'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='Ben Stock'
-                                            onBlur={(e)=>{
-                                                field.onChange(e.target.value.trim())
-                                            }}
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                            <FieldGroup className='grid grid-cols-1 sm:grid-cols-2'>
+                                <Controller
+                                    name='fullName'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='fullName'>Full Name</FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id='fullName'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='Ben Stock'
+                                                onBlur={(e)=>{
+                                                    field.onChange(e.target.value.trim())
+                                                }}
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='phone'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='phone'>Phone Number</FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id='phone'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='01XXX-XXXXXX'
-                                            onBlur={(e)=>{
-                                                field.onChange(e.target.value.trim())
-                                            }}
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                                <Controller
+                                    name='phone'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='phone'>Phone Number</FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id='phone'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='01XXX-XXXXXX'
+                                                onBlur={(e)=>{
+                                                    field.onChange(e.target.value.trim())
+                                                }}
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='password'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='password'>Password</FieldLabel>
-                                        <PasswordInput
-                                            {...field}
-                                            id='password'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='Min. 6 Character' 
-                                            autoComplete='off'
-                                            onBlur={(e)=>{
-                                                field.onChange(e.target.value.trim())
-                                            }}
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                                <Controller
+                                    name='password'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='password'>Password</FieldLabel>
+                                            <PasswordInput
+                                                {...field}
+                                                id='password'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='Min. 6 Character' 
+                                                autoComplete='off'
+                                                onBlur={(e)=>{
+                                                    field.onChange(e.target.value.trim())
+                                                }}
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='confirmPassword'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='confirmPassword'>Confirm Password</FieldLabel>
-                                        <PasswordInput
-                                            {...field}
-                                            id='confirmPassword'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='Repeat Password' 
-                                            autoComplete='off'
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                                <Controller
+                                    name='confirmPassword'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='confirmPassword'>Confirm Password</FieldLabel>
+                                            <PasswordInput
+                                                {...field}
+                                                id='confirmPassword'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='Repeat Password' 
+                                                autoComplete='off'
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='chamberName'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='chamberName'>Chamber Name</FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id='chamberName'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='Pulse Care'
-                                            onBlur={(e)=>{
-                                                field.onChange(e.target.value.trim())
-                                            }}
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                                <Controller
+                                    name='chamberName'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='chamberName'>Chamber Name</FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id='chamberName'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='Pulse Care'
+                                                onBlur={(e)=>{
+                                                    field.onChange(e.target.value.trim())
+                                                }}
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='licenseNumber'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='licenseNumber'>Professional License Number</FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id='licenseNumber'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='e.g. 109500'
-                                            onBlur={(e)=>{
-                                                field.onChange(e.target.value.trim())
-                                            }}
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
+                                <Controller
+                                    name='licenseNumber'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='licenseNumber'>Professional License Number</FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id='licenseNumber'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='e.g. 109500'
+                                                onBlur={(e)=>{
+                                                    field.onChange(e.target.value.trim())
+                                                }}
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
 
-                            <Controller
-                                name='subscriptionToken'
-                                control={form.control}
-                                render={({ field, fieldState })=>(
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor='subscriptionToken'>Subscription Token</FieldLabel>
-                                        <Input
-                                            {...field}
-                                            id='subscriptionToken'
-                                            aria-invalid={fieldState.invalid}
-                                            placeholder='BETA-F3XXXXX'
-                                        />
-                                        {
-                                            fieldState.invalid && (
-                                                <FieldError errors={[fieldState.error]}/>
-                                            )
-                                        }
-                                    </Field>
-                                )}
-                            />
-                            
-                            <Field>
-                                <Button type="submit" className="w-full" disabled={isPending}>
-                                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {isPending ? "Creating Account..." : "Setup Chamber"}
-                                </Button>
-                            </Field>
+                                <Controller
+                                    name='subscriptionToken'
+                                    control={form.control}
+                                    render={({ field, fieldState })=>(
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor='subscriptionToken'>Subscription Token</FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id='subscriptionToken'
+                                                aria-invalid={fieldState.invalid}
+                                                placeholder='BETA-F3XXXXX'
+                                            />
+                                            {
+                                                fieldState.invalid && (
+                                                    <FieldError errors={[fieldState.error]}/>
+                                                )
+                                            }
+                                        </Field>
+                                    )}
+                                />
+                                
+                                <Field className='col-span-1 sm:col-span-2'>
+                                    <Button type="submit" className="w-full mt-1 sm:mt-2" disabled={isPending}>
+                                        {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        {isPending ? "Creating Account..." : "Setup Chamber"}
+                                    </Button>
+                                </Field>
 
-                        </FieldGroup>
-                    </form>
-                </div>
-                <div className="col-span-1 flex flex-col justify-center bg-[#2fd6e0]">
-                    <Image src={'/chamber.jpg'} width={3000} height={2000} alt='Doc-chamber reciption'/>
+                            </FieldGroup>
+                        </form>
+                    </div>
+                    <div className="col-span-1 h-full order-0 md:order-1">
+                        <Image src={'/chamber.jpg'} width={3000} height={2000} alt='Doc-chamber reciption' priority={true} fetchPriority='high' className='md:h-full mt-2 sm:mt-0 md:rounded-r-2xl'/>
+                    </div>
                 </div>
             </div>
         </div>

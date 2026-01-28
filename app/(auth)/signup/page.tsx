@@ -84,9 +84,9 @@ export default function Signup() {
     return (
         <div>
             <div className='container'>
-                <div className='flex justify-center items-center h-dvh'>
-                    <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full sm:max-w-5xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-xl sm:rounded-2xl">
-                        <div className='col-span-1 py-6 px-4 sm:py-8 sm:px-6 md:py-20 md:px-12'>
+                <div className='flex justify-center items-center min-h-dvh sm:py-8'>
+                    <div className="grid grid-cols-1 md:grid-cols-2 items-center w-full sm:max-w-5xl sm:shadow-[0_4px_12px_rgba(0,0,0,0.1)] sm:rounded-2xl">
+                        <div className='col-span-1 order-1 md:order-0 py-6 px-2 sm:py-8 sm:px-6 md:py-16 md:px-12'>
                             <h2 className='text-xl sm:text-2xl xl:text-4xl text-primary text-center md:text-left mb-4 sm:mb-6'>Open Your Account!</h2>
                             <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -122,7 +122,7 @@ export default function Signup() {
                             </form>
                             <p className='text-center mt-4 sm:mt-6 md:mt-8'>Already Has Account? <Link href={'/login'} className='font-medium text-primary'>Login</Link></p>
                         </div>
-                        <div className="col-span-1 hidden md:block">
+                        <div className="col-span-1 order-0 md:order-1">
                             <Image src={'/auth-bg.png'} width={2000} height={1667} alt='Signup' priority={true} fetchPriority='high'/>
                         </div>
                     </div>
