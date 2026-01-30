@@ -18,6 +18,9 @@
   --primary: hsl(184 100% 29%);
   --primary-foreground: hsl(210 40% 98%);
 
+  --primary-opp : hsl(66 94% 68%);
+  --primary-opp-foreground: hsl(0 0% 10%);
+
   /* Secondary: Light Slate - Softness */
   --secondary: hsl(210 40% 96.1%);
   --secondary-foreground: hsl(222.2 47.4% 11.2%);
@@ -78,6 +81,8 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-opp-foreground: var(--primary-opp-foreground);
+  --color-primary-opp: var(--primary-opp);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -145,8 +150,24 @@
 
 @layer components {
 
+  .btn {
+    @apply inline-flex justify-center items-center gap-1.5 rounded-[50px] transition-colors duration-200 ease-linear
+  }
+
   .btn-default {
-    @apply text-base font-semibold font-heading text-white bg-primary rounded-[50px] py-3.5 px-5.5
+    @apply text-base font-semibold font-heading text-secondary-foreground bg-secondary py-3.5 px-5.5 hover:text-white hover:bg-secondary-foreground
+  }
+
+  .btn-small {
+    @apply text-[0.813rem] font-normal py-[.35rem] px-[.85rem]
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:text-primary-opp-foreground hover:bg-primary-opp 
+  }
+
+  .btn-secondary {
+    @apply bg-primary-opp text-primary-opp-foreground hover:text-primary hover:bg-background
   }
 
 }

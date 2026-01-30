@@ -3,6 +3,7 @@ import { Poppins, Rubik, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import Header from "./_components/Header";
 
 const poppins = Poppins({
     variable: "--font-pops",
@@ -32,6 +33,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                 className={`${poppins.variable} ${rubik.variable} ${jakarta.variable} antialiased`}
             >
                 <SessionProvider>
+                    <Header/>
                     <main>
                         {children}
                     </main>
