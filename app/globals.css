@@ -51,7 +51,7 @@
 }
 
 @theme inline {
-  --font-heading: var(--font-pops);
+  --font-manrope: var(--font-manrope);
   --font-body: var(--font-rubik);
   --font-dash-heading: var(--font-jakarta);
   --color-background: var(--background);
@@ -114,7 +114,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-manrope;
   }
 
   button:not(:disabled),
@@ -123,15 +123,15 @@
   }
 
   h1 {
-    @apply text-[3.125rem]/[1.1em] font-semibold font-heading text-white text-shadow-[0_0_1px_#000000]
+    @apply text-[4rem]/[1.15em] font-bold font-manrope text-white capitalize -tracking-[0.02em]
   }
 
   h2 {
-    @apply text-[40px]/[1.1em] font-semibold font-heading
+    @apply text-[40px]/[1.1em] font-semibold font-manrope
   }
 
   h4 {
-    @apply text-2xl font-semibold font-heading
+    @apply text-2xl font-semibold font-manrope
   }
 
   label {
@@ -155,7 +155,7 @@
   }
 
   .btn-default {
-    @apply text-base font-semibold font-heading text-secondary-foreground bg-secondary py-3.5 px-5.5 hover:text-white hover:bg-secondary-foreground
+    @apply text-base font-semibold font-manrope text-secondary-foreground bg-secondary py-3.5 px-5.5 hover:text-white hover:bg-secondary-foreground
   }
 
   .btn-small {
@@ -180,7 +180,19 @@
     padding-inline: 1rem;
   }
 
-  @variant xl {
-    padding-inline: 2rem;
+  @variant 2xl {
+    max-width: 80rem;
+  }
+  
+}
+
+@layer utilities {
+
+  .overlay {
+    @apply relative z-10
+  }
+
+  .overlay::before{
+    @apply absolute top-0 left-0 content-[''] w-full h-full -z-1 opacity-[0.05]
   }
 }

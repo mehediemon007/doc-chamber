@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Poppins, Rubik, Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope, Rubik, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "./_components/Header";
 
-const poppins = Poppins({
-    variable: "--font-pops",
+const manrope = Manrope({
+    variable: "--font-manrope",
     weight: ["300", "400", "500", "600", "700"],
     subsets: ["latin"],
 })
@@ -30,7 +30,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     return (
         <html lang="en">
             <body
-                className={`${poppins.variable} ${rubik.variable} ${jakarta.variable} antialiased`}
+                className={`${manrope.variable} ${rubik.variable} ${jakarta.variable} antialiased`}
             >
                 <SessionProvider>
                     <Header/>
