@@ -56,7 +56,7 @@ const Hero = ({ className} : HeroProps) => {
                     </div>
                 </div>
                 <div className="max-w-225">
-                    <Image src='/hero-image.webp' alt='Hero Image' width={960} height={910}/>
+                    <Image src={'/hero-banner.webp'} alt='Hero Image' width={960} height={910}/>
                 </div>
             </div>    
         </section>
