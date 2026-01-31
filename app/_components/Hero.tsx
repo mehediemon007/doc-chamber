@@ -1,5 +1,3 @@
-import React from 'react';
-import Image from 'next/image';
 import TypingText from '@/components/TypingText';
 
 import { cn } from '@/lib/utils';
@@ -55,9 +53,7 @@ const Hero = ({ className} : HeroProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="max-w-225">
-                    <Image src={'/hero-image.webp'} alt='Hero Image' width={960} height={910}/>
-                </div>
+                <div className="w-1/2 max-w-225 min-h-125 sm:min-h-auto bg-[url('/hero-image.webp')] bg-center bg-no-repeat bg-cover"></div>
             </div>    
         </section>
     )
