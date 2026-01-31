@@ -54,7 +54,7 @@ const Hero = ({ className} : HeroProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1 min-h-125 bg-[url('/hero-image.webp')] bg-center bg-no-repeat bg-cover"></div>
+                <div className="col-span-1 min-h-125 sm:min-h-auto bg-[url('/hero-image.webp')] bg-center bg-no-repeat bg-cover"></div>
             </div>    
         </section>
     )
