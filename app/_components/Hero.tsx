@@ -53,7 +53,7 @@ const Hero = ({ className} : HeroProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="w-1/2 max-w-225 min-h-125 sm:min-h-auto bg-[url('/hero-image.webp')] bg-center bg-no-repeat bg-cover"></div>
+                <div className="w-1/2 max-w-225 min-h-125 sm:min-h-auto bg-[url('/hero-banner.webp')] bg-center bg-no-repeat bg-cover"></div>
             </div>    
         </section>
     )
