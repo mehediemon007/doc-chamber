@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import TypingText from '@/components/TypingText';
 
 import { cn } from '@/lib/utils';
@@ -16,8 +17,8 @@ const Hero = ({ className} : HeroProps) => {
 
     return (
         <section className={cn('', className)}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="col-span-1 flex flex-col gap-28 bg-radial-[at_center_left,#016273,#00778C] py-12 px-5 sm:p-15.5 overlay before:bg-[url('/hero-bg.png')] before:bg-center before:bg-no-repeat">
+            <div className="flex flex-col sm:flex-row gap-5">
+                <div className="flex-1 flex flex-col justify-end gap-28 bg-radial-[at_center_left,#016273,#00778C] py-12 px-5 sm:p-15.5 overlay before:bg-[url('/hero-bg.png')] before:bg-center before:bg-no-repeat">
                     <div className='flex justify-end'>
                         <div className='w-full sm:w-150 space-y-8'>
                             <div className='space-y-4'>
@@ -54,7 +55,9 @@ const Hero = ({ className} : HeroProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1 min-h-125 sm:min-h-auto bg-[url('/hero-image.webp')] bg-center bg-no-repeat bg-cover"></div>
+                <div className="max-w-225">
+                    <Image src='/hero-image.webp' alt='Hero Image' width={960} height={910}/>
+                </div>
             </div>    
         </section>
     )
