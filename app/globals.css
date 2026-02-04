@@ -114,7 +114,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-manrope;
+    @apply bg-background text-foreground font-body;
   }
 
   button:not(:disabled),
@@ -127,11 +127,15 @@
   }
 
   h2 {
-    @apply text-[40px]/[1.1em] font-semibold font-manrope
+    @apply text-[40px]/[1.1em] font-bold font-manrope
   }
 
   h4 {
     @apply text-2xl font-semibold font-manrope
+  }
+
+  h5 {
+    @apply text-xl font-bold font-manrope
   }
 
   label {

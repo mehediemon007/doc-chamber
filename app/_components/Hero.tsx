@@ -15,7 +15,7 @@ const Hero = ({ className} : HeroProps) => {
 
     return (
         <section className={cn('', className)}>
-            <div className="flex flex-col sm:flex-row gap-5">
+            <div className="flex flex-col sm:flex-row">
                 <div className="flex-1 flex flex-col justify-end gap-28 bg-radial-[at_center_left,#016273,#00778C] py-12 px-5 sm:p-15.5 overlay before:bg-[url('/hero-bg.png')] before:bg-center before:bg-no-repeat">
                     <div className='flex justify-end'>
                         <div className='w-full sm:w-150 space-y-8'>
