@@ -130,8 +130,12 @@
     @apply text-[40px]/[1.1em] font-bold font-manrope
   }
 
+  h3 {
+    @apply text-3xl/[1.2em] font-bold font-manrope
+  }
+
   h4 {
-    @apply text-2xl font-semibold font-manrope
+    @apply text-2xl font-bold font-manrope
   }
 
   h5 {
@@ -150,6 +154,10 @@
     @apply w-full text-sm bg-[#f6f6f6] border border-[#EEEEEE] rounded-[50px] py-2.5 px-4 focus:outline-1 focus:outline-primary placeholder:text-sm placeholder:text-gray-400
   }
   
+  a {
+    @apply transition-all duration-200 ease-in hover:text-primary
+  }
+
 }
 
 @layer components {
@@ -167,7 +175,7 @@
   }
 
   .btn-primary {
-    @apply bg-primary text-white hover:text-primary-opp-foreground hover:bg-primary-opp 
+    @apply bg-primary text-white hover:bg-[#136f94] 
   }
 
   .btn-secondary {

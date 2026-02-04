@@ -1,4 +1,6 @@
 import About from "./_components/About";
+import AboutChamber from "./_components/AboutChamber";
+import Appointment from "./_components/Appointment";
 import Hero from "./_components/Hero";
 
 export default function Home() {
@@ -6,6 +8,8 @@ export default function Home() {
         <>
             <Hero/>
             <About/>
+            <AboutChamber/>
+            <Appointment/>
         </>
     );
 }

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import TypingText from '@/components/TypingText';
 
 import { cn } from '@/lib/utils';
@@ -24,10 +25,10 @@ const Hero = ({ className} : HeroProps) => {
                                 <h1>Reliable Healthcare for You and Your Family</h1>
                             </div>
                             <p className='max-w-126.5 text-lg text-white'>Clinara Provides professional medical care with a focus on patient safety, clear communication, and modern treatment facilities. Our team of qualified doctors is here to support your health at every stage of life.</p>
-                            <button className='btn btn-default btn-secondary'>
+                            <Link href='/#appointment' className='btn btn-default btn-secondary'>
                                 <CalendarPlus2/>
                                 <span>Book an Appointment</span>
-                            </button>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex justify-end">

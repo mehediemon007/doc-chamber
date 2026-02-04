@@ -11,24 +11,22 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 function BookingForm() {
     return (
-        <div className='bg-white rounded-4xl p-7.5 space-y-2.5'>
-            <h4 className='font-medium'>Request a call</h4>
-            <p className='mb-5'>Please fill your information so we can get in touch with you.</p>
+        <div className='space-y-5'>
             <form>
-                <fieldset className='space-y-2.5'>
-                    <div>
+                <fieldset className='grid grid-cols-2 gap-5'>
+                    <div className='col-span-1'>
                         <label htmlFor="name" className='required'>Name</label>
-                        <input id="name" type="text" placeholder='Hasan Masud' autoComplete='off'/>
+                        <input id="name" type="text" placeholder='Hasan Masud' autoComplete='off' className='h-12'/>
                     </div>
-                    <div>
+                    <div className='col-span-1'>
                         <label htmlFor="phone" className='required'>Phone</label>
-                        <input id="phone" type="tel" placeholder='01XXX-XXXXXX' autoComplete='off'/>
+                        <input id="phone" type="tel" placeholder='01XXX-XXXXXX' autoComplete='off' className='h-12'/>
                     </div>
-                    <div>
+                    <div className='col-span-1'>
                         <label htmlFor="date" className='required'>Date</label>
-                        <DatePicker className='w-full h-auto bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! hover:bg-[#f6f6f6]'/>
+                        <DatePicker className='w-full h-12 bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4! hover:bg-[#f6f6f6]'/>
                     </div>
-                    <div>
+                    <div className='col-span-1'>
                         <label htmlFor="time" className='required'>Time</label>
                         <Select
                             // defaultValue={time!}
@@ -43,7 +41,7 @@ function BookingForm() {
                             //     }
                             // }}
                         >
-                            <SelectTrigger className="w-full h-auto! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4!">
+                            <SelectTrigger className="w-full h-12! bg-[#f6f6f6] border-[#EEEEEE] rounded-[50px] shadow-none py-2.5 px-4!">
                                 <SelectValue placeholder="Select time"/>
                             </SelectTrigger>
                             <SelectContent>
@@ -70,8 +68,8 @@ function BookingForm() {
                         </Select>
                     </div>
                 </fieldset>
-                <button className='btn-default w-full mt-4'>
-                    <span>Request a call</span>
+                <button className='btn btn-default btn-primary w-full mt-6'>
+                    Book appointment
                 </button>
             </form>
         </div>

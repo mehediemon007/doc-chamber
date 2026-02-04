@@ -4,6 +4,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "./_components/Header";
+import Footer from "./_components/Footer";
 
 const manrope = Manrope({
     variable: "--font-manrope",
@@ -37,6 +38,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                     <main>
                         {children}
                     </main>
+                    <Footer/>
                 </SessionProvider>
                 <Toaster richColors position="top-center"/>
             </body>
