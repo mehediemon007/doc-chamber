@@ -9,7 +9,22 @@ import {
 } from "@/components/ui/select";
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+import { useForm } from 'react-hook-form';
+import { BookingInput, bookingSchema } from '@/schemas/booking';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 function BookingForm() {
+
+    const form = useForm<BookingInput>({
+        resolver: zodResolver(bookingSchema),
+        defaultValues: {
+            fullName: '',
+            phone: '',
+            bookingDate: '',
+            shiftId: ''
+        }
+    })
+    
     return (
         <div className='space-y-5'>
             <form>
